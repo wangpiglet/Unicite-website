@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: floral-artist/website-repo # Placeholder GitHub Repo
+  repo: wangpiglet/Unicite-website
   branch: main
 
 media_folder: "public/uploads"
