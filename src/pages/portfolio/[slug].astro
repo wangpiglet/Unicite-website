@@ -1,0 +1,48 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+    const portfolios = await getCollection('portfolio');
+    return portfolios.map(item => ({
+        params: { slug: item.slug },
+        props: { item },
+    }));
+}
+
+const { item } = Astro.props;
+const { Content } = await item.render();
+---
+
+<Layout title={item.data.title}>
+    <article class="max-w-5xl mx-auto px-4 py-12">
+        <div class="backdrop-blur-xl bg-white/40 rounded-[32px] p-8 md:p-12 border border-white/60 shadow-xl mb-12">
+            <div class="text-center mb-10">
+                <div class="text-xs font-bold text-[#7d8c72] uppercase tracking-[0.3em] mb-4">View Portfolio</div>
+                <h1 class="text-4xl md:text-5xl font-serif italic text-[#2c3e50] mb-6 drop-shadow-sm">{item.data.title}</h1>
+                <p class="text-lg text-[#5d6d7e] font-light max-w-2xl mx-auto">{item.data.description}</p>
+            </div>
+
+            <div class="rounded-[24px] overflow-hidden border-8 border-white/60 shadow-xl mb-12 relative bg-white/20">
+                <img src={item.data.coverImage} alt={item.data.title} class="w-full aspect-[21/9] object-cover absolute inset-0 h-full" />
+                <div class="w-full aspect-[21/9]"></div>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-12">
+                <div class="lg:col-span-7 backdrop-blur-md bg-white/50 rounded-[32px] p-8 border border-white/40 shadow-sm relative">
+                    <div class="prose prose-lg text-[#5d6d7e] font-light max-w-none prose-headings:font-serif prose-headings:italic prose-headings:text-[#2c3e50] relative z-10">
+                        <Content />
+                    </div>
+                </div>
+                <div class="lg:col-span-5 grid gap-6 content-start">
+                    {item.data.galleryImages && item.data.galleryImages.map(img => (
+                        <div class="rounded-[24px] overflow-hidden border-4 border-white/60 shadow-xl relative bg-white/20">
+                            <img src={img} alt="Gallery item" class="w-full aspect-[4/3] object-cover hover:scale-105 transition duration-500 absolute inset-0 h-full" />
+                            <div class="w-full aspect-[4/3]"></div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </article>
+</Layout>

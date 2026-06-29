@@ -1,0 +1,21 @@
+---
+import { getEntry } from 'astro:content';
+const siteSettings = await getEntry('settings', 'site');
+const siteTitle = siteSettings?.data.siteTitle || 'Floral Artist';
+---
+<header class="fixed w-full top-0 z-50 backdrop-blur-md bg-white/30 border-b border-white/40 h-16 flex items-center">
+    <div class="max-w-6xl mx-auto px-6 w-full flex items-center justify-between">
+        <a href="/" class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-[#7d8c72] rounded-full flex items-center justify-center text-white italic font-serif text-xl border border-white">FA</div>
+            <span class="font-semibold tracking-widest text-lg uppercase text-[#4a4a4a]">{siteTitle}</span>
+        </a>
+        <nav class="hidden md:flex gap-8 text-sm font-medium uppercase tracking-tighter text-[#4a4a4a]">
+            <a href="/" class="hover:text-[#7d8c72] transition">首頁</a>
+            <a href="/about" class="hover:text-[#7d8c72] transition">關於我</a>
+            <a href="/courses" class="hover:text-[#7d8c72] transition">花藝課程</a>
+            <a href="/portfolio" class="hover:text-[#7d8c72] transition">作品集</a>
+            <a href="/contact" class="hover:text-[#7d8c72] transition">聯絡我</a>
+        </nav>
+        <a href="/admin/index.html" class="hidden md:block px-4 py-1.5 rounded-full border border-[#7d8c72] text-[#7d8c72] hover:bg-[#7d8c72] hover:text-white transition text-xs font-bold uppercase tracking-widest">CMS 後台</a>
+    </div>
+</header>

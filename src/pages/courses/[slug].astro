@@ -1,0 +1,57 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+    const courses = await getCollection('courses');
+    return courses.map(course => ({
+        params: { slug: course.slug },
+        props: { course },
+    }));
+}
+
+const { course } = Astro.props;
+const { Content } = await course.render();
+---
+
+<Layout title={course.data.title}>
+    <article class="max-w-4xl mx-auto px-4 py-12">
+        <div class="backdrop-blur-xl bg-white/40 rounded-[32px] p-6 md:p-10 border border-white/60 shadow-xl mb-10">
+            <div class="text-center mb-8">
+                <div class="text-xs font-bold text-[#7d8c72] uppercase tracking-[0.3em] mb-4">Course Info</div>
+                <h1 class="text-4xl md:text-5xl font-serif italic text-[#2c3e50] mb-6 drop-shadow-sm">{course.data.title}</h1>
+            </div>
+            
+            <div class="w-full aspect-[21/9] rounded-[24px] overflow-hidden border-8 border-white/60 shadow-xl mb-10 relative bg-white/20">
+                <img src={course.data.coverImage} alt={course.data.title} class="absolute inset-0 w-full h-full object-cover" />
+            </div>
+            
+            <div class="bg-white/60 rounded-[24px] p-6 md:p-8 flex flex-col md:flex-row justify-around text-center gap-6 border border-white/40 shadow-sm backdrop-blur-md">
+                <div>
+                    <span class="block text-[10px] font-bold text-[#7d8c72] uppercase tracking-[0.3em] mb-2 drop-shadow-sm">課程費用</span>
+                    <span class="text-2xl font-serif italic text-[#2c3e50]">NT$ {course.data.price?.toLocaleString()}</span>
+                </div>
+                <div class="w-px bg-white/80 hidden md:block opacity-50"></div>
+                <div>
+                    <span class="block text-[10px] font-bold text-[#7d8c72] uppercase tracking-[0.3em] mb-2 drop-shadow-sm">課程長度</span>
+                    <span class="text-xl font-medium text-[#2c3e50]">{course.data.duration}</span>
+                </div>
+                <div class="w-px bg-white/80 hidden md:block opacity-50"></div>
+                <div>
+                    <span class="block text-[10px] font-bold text-[#7d8c72] uppercase tracking-[0.3em] mb-2 drop-shadow-sm">適合對象</span>
+                    <span class="text-xl font-medium text-[#2c3e50]">{course.data.targetAudience}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="backdrop-blur-xl bg-white/40 rounded-[32px] p-8 md:p-12 border border-white/60 shadow-xl">
+            <div class="prose prose-lg text-[#5d6d7e] font-light max-w-none prose-headings:font-serif prose-headings:italic prose-headings:text-[#2c3e50] prose-img:rounded-[24px] prose-img:border-4 prose-img:border-white/60 prose-img:shadow-xl">
+                <Content />
+            </div>
+            
+            <div class="mt-12 text-center pt-8 border-t border-white/30">
+                <a href="/contact" class="inline-block bg-[#7d8c72] text-white px-10 py-4 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-[#6c7962] transition shadow-lg shadow-[#7d8c72]/30">預約報名</a>
+            </div>
+        </div>
+    </article>
+</Layout>

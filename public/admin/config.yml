@@ -1,0 +1,71 @@
+backend:
+  name: github
+  repo: floral-artist/website-repo # Placeholder GitHub Repo
+  branch: main
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - file: "src/content/settings/site.json"
+        label: "Site Settings"
+        name: "site"
+        fields:
+          - {label: "Site Title", name: "siteTitle", widget: "string"}
+          - {label: "Logo", name: "logo", widget: "image", required: false}
+          - {label: "Hero Image", name: "heroImage", widget: "image"}
+          - {label: "Hero Title", name: "heroTitle", widget: "string"}
+          - {label: "Hero Subtitle", name: "heroSubtitle", widget: "string"}
+
+  - name: "about"
+    label: "About Me"
+    files:
+      - file: "src/content/about/index.md"
+        label: "About Page"
+        name: "about"
+        fields:
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Profile Image", name: "profileImage", widget: "image"}
+          - {label: "Body", name: "body", widget: "markdown"}
+
+  - name: "portfolio"
+    label: "Portfolio"
+    folder: "src/content/portfolio"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Cover Image", name: "coverImage", widget: "image"}
+      - {label: "Gallery Images", name: "galleryImages", widget: "list", field: {label: "Image", name: "image", widget: "image"}, required: false}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  - name: "courses"
+    label: "Courses"
+    folder: "src/content/courses"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Cover Image", name: "coverImage", widget: "image"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Price", name: "price", widget: "number"}
+      - {label: "Duration", name: "duration", widget: "string"}
+      - {label: "Target Audience", name: "targetAudience", widget: "string"}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  - name: "contact"
+    label: "Contact Info"
+    files:
+      - file: "src/content/contact/index.md"
+        label: "Contact Page"
+        name: "contact"
+        fields:
+          - {label: "Instagram", name: "instagram", widget: "string", required: false}
+          - {label: "LINE", name: "line", widget: "string", required: false}
+          - {label: "Email", name: "email", widget: "string", required: false}
+          - {label: "Contact Text", name: "contactText", widget: "text"}
+          - {label: "Body", name: "body", widget: "markdown", required: false}

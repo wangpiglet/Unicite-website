@@ -1,0 +1,6 @@
+{
+  "name": "Floral Artist",
+  "description": "個人花藝品牌網站與作品展示",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
