@@ -1,6 +1,5 @@
 backend:
-  name: github
-  repo: wangpiglet/Unicite-website
+  name: git-gateway
   branch: main
 
 media_folder: "public/uploads"
